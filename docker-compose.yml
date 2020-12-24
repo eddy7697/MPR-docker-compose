@@ -2,17 +2,12 @@ version: "3.3"
 
 services:
   db:
-    image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/mysql
+    image: mysql:5.7.24
     restart: always
     ports:
       - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: 6mtujaZCqHAG
-      MYSQL_DATABASE: newdb
-      MYSQL_USER: dbuser
-      MYSQL_PASSWORD: Uz6UcoTVjESw
+      MYSQL_ROOT_PASSWORD: bhiWIinE3ZcqzSZh 
 
   phpmyadmin: 
     depends_on:
