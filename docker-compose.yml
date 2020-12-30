@@ -3,11 +3,14 @@ version: "3.3"
 services:
   db:
     image: mysql:5.7.24
+    container_name: mysql
     restart: always
     ports:
       - '3306:3306'
+    networks: 
+      - backend
     environment:
-      MYSQL_ROOT_PASSWORD: bhiWIinE3ZcqzSZh 
+      MYSQL_ROOT_PASSWORD: YOUR_DB_PASSWORD 
 
   phpmyadmin: 
     depends_on:
@@ -17,6 +20,8 @@ services:
     restart: always
     ports:
       - '8080:80'
+    networks: 
+      - backend
     environment:
       PMA_HOST: db
       
@@ -24,10 +29,17 @@ services:
     depends_on:
       - db
     image: "redis:4-alpine"
+    container_name: redis
     restart: always
+    networks: 
+      - backend
     ports:
       - "6379:6379"
-    command: redis-server --requirepass AliJApeLM4Sw1chF
+    command: redis-server --requirepass YOUR_REDIS_PASSWORD
+
+networks:
+  backend:
+    name: service_backend
 
 volumes:
   db_data: {}
