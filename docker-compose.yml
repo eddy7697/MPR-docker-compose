@@ -9,8 +9,10 @@ services:
       - '3306:3306'
     networks: 
       - backend
+    volumes:
+      - ./config:/etc/mysql/conf.d  # 映射本地配置文件到容器中的my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: YOUR_DB_PASSWORD 
+      MYSQL_ROOT_PASSWORD: newpassword 
 
   phpmyadmin: 
     depends_on:
@@ -35,11 +37,12 @@ services:
       - backend
     ports:
       - "6379:6379"
-    command: redis-server --requirepass YOUR_REDIS_PASSWORD
+    command: redis-server --requirepass newpassword
 
 networks:
   backend:
-    name: service_backend
-
+    external:
+      name: service_backend
+      
 volumes:
   db_data: {}
