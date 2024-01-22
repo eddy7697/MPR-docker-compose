@@ -8,25 +8,12 @@ services:
     ports:
       - '3306:3306'
     networks: 
-      - backend
+      - service_backend
     volumes:
       - ./config:/etc/mysql/conf.d  # 映射本地配置文件到容器中的my.cnf
       - ./data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: yourpassword 
-
-  phpmyadmin: 
-    depends_on:
-      - db
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    restart: always
-    ports:
-      - '8080:80'
-    networks: 
-      - backend
-    environment:
-      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: eg907423 
       
   redis:
     depends_on:
@@ -35,15 +22,15 @@ services:
     container_name: redis
     restart: always
     networks: 
-      - backend
+      - service_backend
     ports:
       - "6379:6379"
-    command: redis-server --requirepass yourpassword
+    command: redis-server --requirepass eg907423
 
 networks:
-  backend:
-    external:
-      name: service_backend
+  service_backend:
+    name: service_backend
+    external: true
       
 volumes:
   db_data: {}
