@@ -1,25 +1,26 @@
 version: "3.3"
 
 services:
-  db:
-    image: mysql:5.7.24
-    container_name: mysql
+  db_:
+    image: mysql:8.0
+    container_name: mysql8.0
     restart: always
     ports:
       - '3306:3306'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     networks: 
       - service_backend
     volumes:
-      - ./config:/etc/mysql/conf.d  # 映射本地配置文件到容器中的my.cnf
-      - ./data:/var/lib/mysql
+      - ./my8.0_config:/etc/mysql/conf.d  # 映射本地配置文件到容器中的my.cnf
+      - ./my8.0_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       
-  redis:
+  redis_:
     depends_on:
-      - db
-    image: "redis:4-alpine"
-    container_name: redis
+      - db_
+    image: "redis:6-alpine"
+    container_name: redis6.0
     restart: always
     networks: 
       - service_backend
