@@ -1,4 +1,3 @@
-version: "3.3"
 
 services:
   db_:
@@ -13,6 +12,7 @@ services:
     volumes:
       - ./my8.0_config:/etc/mysql/conf.d  # 映射本地配置文件到容器中的my.cnf
       - ./my8.0_data:/var/lib/mysql
+      - ./dump_data:/dump_data
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     healthcheck:
